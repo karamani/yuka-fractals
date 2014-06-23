@@ -14,6 +14,9 @@ App.Views.Main = Backbone.View.extend({
     },
 
     switchContent: function (link) {
+        if (this.currentView !== null) {
+            this.currentView.undelegateEvents();
+        }    
         delete(this.currentView);
         _.each(this.views, function (element) {
             if (element.name === link) {
@@ -21,9 +24,8 @@ App.Views.Main = Backbone.View.extend({
             }
         }, this);
 
-        if (this.currentView !== null) {
-            $(".fractal-canvas").children().remove();
-            $(".fractal-canvas").append(this.currentView.render().el);
+        if (this.currentView !== null) {            
+            $(".dashboard").append(this.currentView.refresh().el);
         }
     },
 
