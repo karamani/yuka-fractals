@@ -1,14 +1,25 @@
 App.Views.FractalCanvas = Backbone.View.extend({
 
     el: ".fractal-canvas",
+    tagName:  'div',
+    className: "fractal-canvas",
+    
     context: null,
-
+    
+    events: {
+        "click .refreshButton" : "refresh"
+    },
+ 
     initialize: function() {
         _.bindAll(this, 'render');
     },
 
+    renderToolbar: function() {
+        this.$el.html(this.$el.html() + '<div style="float:both;"><input class="refreshButton" type="button" value="Обновить"/></div>')  
+    },
+    
     renderCanvas: function() {
-        this.$el.html('<canvas id="fractalCanvas" width="1000" height="900" style="border:1px solid #000000;"></canvas>');
+        this.$el.html(this.$el.html() + '<canvas id="fractalCanvas" width="1000" height="900" style="border:1px solid #000000;"></canvas>');
     },
 
     initContext: function() {
@@ -19,18 +30,25 @@ App.Views.FractalCanvas = Backbone.View.extend({
     renderFractal: function() { },
 
     render: function() {
+        this.renderToolbar();
         this.renderCanvas();
         this.initContext();
         this.renderFractal();
         return this;
-    }
+    },
+    
+    refresh: function() {
+        this.$el.children().remove();
+        this.render();
+        return this;
+    }    
 });
 
-App.Views.TreeFractalCanvas = App.Views.FractalCanvas.extend({
+App.Views.FernFractalCanvas = App.Views.FractalCanvas.extend({
 
     initialize: function() {
         App.Views.FractalCanvas.prototype.initialize.call(this);
-        App.Views.FractalCanvas.prototype.renderFractal = function () {
+        App.Views.FernFractalCanvas.prototype.renderFractal = function() {
             this.fern(400, 800);
         }
     },
@@ -61,11 +79,11 @@ App.Views.TreeFractalCanvas = App.Views.FractalCanvas.extend({
     }
 });
 
-App.Views.FernFractalCanvas = App.Views.FractalCanvas.extend({
+App.Views.TreeFractalCanvas = App.Views.FractalCanvas.extend({
 
     initialize: function() {
         App.Views.FractalCanvas.prototype.initialize.call(this);
-        App.Views.FractalCanvas.prototype.renderFractal = function () {
+        App.Views.TreeFractalCanvas.prototype.renderFractal = function() {
             this.tree(500, 750, 3 * 3.14 / 2, 200);
         }
     },
