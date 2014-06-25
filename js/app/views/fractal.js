@@ -15,16 +15,19 @@ App.Views.FractalCanvas = Backbone.View.extend({
     },
 
     renderToolbar: function() {
-        this.$el.html(this.$el.html() + '<div style="float:both;"><input class="refreshButton" type="button" value="Обновить"/></div>')  
+        this.$el.html(this.$el.html() + '<div style="float:both;"><input class="refreshButton" type="button" value="Обновить"/></div>');
+        return this;
     },
     
     renderCanvas: function() {
         this.$el.html(this.$el.html() + '<canvas id="fractalCanvas" width="1000" height="900" style="border:1px solid #000000;"></canvas>');
+        return this;
     },
 
     initContext: function() {
         this.context = this.$el.find("#fractalCanvas").get(0).getContext("2d");
         this.context.fillStyle = "#408040";
+        return this;
     },
 
     renderFractal: function() { },
@@ -33,8 +36,21 @@ App.Views.FractalCanvas = Backbone.View.extend({
         this.renderToolbar();
         this.renderCanvas();
         this.initContext();
+        var startTimeMs = this.startWork();
         this.renderFractal();
+        this.stopWork(startTimeMs);
         return this;
+    },
+    
+    startWork: function() {
+        var d = new Date();
+        return d.getTime();
+    },
+    
+    stopWork: function(startTimeMs) {
+        var d = new Date();
+        var duration = d.getTime() - startTimeMs;
+        this.context.fillText("Time: " + duration + " ms", 850, 20);
     },
     
     refresh: function() {
