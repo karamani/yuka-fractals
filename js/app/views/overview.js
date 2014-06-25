@@ -8,7 +8,11 @@ App.Views.Ovarview = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html('<span>Overview!</span>');
+        this.$el.html(
+            '<h1>Overview</h1>'
+            + '<p>This is fractals rendering demo.</p>'
+            + '<p>To learn more about fractals, please visit the website: '
+            + '<a href="http://en.wikipedia.org/wiki/Fractal">http://en.wikipedia.org/wiki/Fractal</a></p>');
         return this;
     },
     
