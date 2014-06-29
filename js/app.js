@@ -13,14 +13,16 @@ window.Router = Backbone.Router.extend({
         "": "index",
         "overview": "index",
         "tree": "tree",
-        "fern": "fern"
+        "fern": "fern",
+        "julia": "julia"
     },
 
     initialize: function(data) {
         this.menu = new App.Collections.MenuItems([
             {title: 'Overview', link:"overview", isSelected: true},
             {title: 'Tree', link:"tree", isSelected: false},
-            {title: 'Fern', link:"fern", isSelected: false}
+            {title: 'Fern', link:"fern", isSelected: false},
+            {title: 'Julia', link:"julia", isSelected: false}
         ]);
 
         this.appView = new App.Views.Main({collection: this.menu});
@@ -45,7 +47,13 @@ window.Router = Backbone.Router.extend({
         this.menu.select('fern');
         this.appView.switchContent('fern');
         return true;
-    }
+    },
+    
+    julia: function() {
+        this.menu.select('julia');
+        this.appView.switchContent('julia');
+        return true;
+    }    
 });
 
 $(function() {

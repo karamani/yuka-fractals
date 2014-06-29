@@ -9,7 +9,8 @@ App.Views.Main = Backbone.View.extend({
         this.views = [
             {name: "overview", view: App.Views.Ovarview},
             {name: "tree", view: App.Views.TreeFractalCanvas},
-            {name: "fern", view: App.Views.FernFractalCanvas}
+            {name: "fern", view: App.Views.FernFractalCanvas},
+            {name: "julia", view: App.Views.JuliaFractalCanvas}
         ];
     },
 
